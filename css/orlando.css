@@ -80,7 +80,7 @@ header .header-black li.club-12 {
 }
 
 header .header-black li.club-13 {
-	background-position: -578	px 0px;
+	background-position: -578px 0px;
 }
 
 header .header-black li.club-14 {
@@ -141,8 +141,25 @@ header #logotipo {
 	font-family: 'OpenSans';
 }
 
+#menu li.search {
+	width: 182px;
+}
+
+#menu li.search input {
+	background-color:#5c2d90;
+	color: #fff;
+	border: none;
+	height: 30px;
+	line-height: 30px;
+}
+
+#menu li.search input::-webkit-input-placeholder {
+	color: #fff;
+}
 #menu li a {
 	color: #FFF;
 	font-size: 16px;
 	padding: 16px 25px;
+	font-weight: bold;
 }
+
