@@ -92,7 +92,7 @@ header .header-black li.club-15 {
 }
 
 header .header-black li.club-16 {
-	background-position: -720px 0px;
+	background-position: -716px 0px;
 }
 
 header .header-black li.club-17 {
@@ -153,8 +153,19 @@ header #logotipo {
 	line-height: 30px;
 }
 
-#menu li.search input::-webkit-input-placeholder {
+/*menu li.search input::-webkit-input-placeholder {*/
+#menu li.search ::-webkit-input-placeholder {
 	color: #fff;
+}
+
+#menu li.search button {
+	background: none;
+	border: none;
+	
+}
+#menu li.search button i {
+	font-size: 14px;
+	color: rgba(255,255,255,.5);
 }
 #menu li a {
 	color: #FFF;
