@@ -199,7 +199,7 @@ header #logotipo {
 	position: relative;
 	background : url("../img/banner.jpg") no-repeat;
 	background-position: 0px -100px;
-	top: -110px;
+	top: -130px;
 
 }
 
@@ -225,7 +225,7 @@ header #logotipo {
 	position: relative;
 	top: -110px;
 }
-#news h1 {
+#news h2 {
 	color:#5e2799;
 	font-family: 'OpenSans-Light';
 	font-size: 48px;
@@ -244,8 +244,8 @@ header #logotipo {
 }
 
 #news .thumbnails h3 {
-	font-size: 18px;
 	color: #5e2799;
+	font-size: 18px;
 	font-family: 'OpenSans';
 	font-weight: bold;
 	margin-bottom: 0;
@@ -289,7 +289,6 @@ header #logotipo {
 	color:#5e2799;
 	font-family: 'OpenSans-Light';
 	font-size: 48px;
-	text-transform: uppercase;
 	text-align: center;
 }
 
@@ -329,4 +328,41 @@ header #logotipo {
 #call-to-action .row-max-400 {
 	margin: 0 auto;
 	max-width: 400px; 
+}
+
+footer {
+	margin-top: 110px;
+}
+
+footer .row {
+	width: 100%;
+}
+
+footer .row p {
+	line-height: 60px;
+	margin-bottom: 0;
+}
+
+footer .row-cinza-claro {
+	height: 200px;
+	background-color: #171f26;
+}
+
+footer .row-cinza-escuro {
+	height: 60px;
+	background-color: #11171d;
+	border-top: #242d37 1px solid;
+}
+
+footer .pull-left {
+	font-family: 'OpenSans';
+	font-size:  16px;
+	color: #666; 
+}
+
+footer .text-roxo {
+	color: #623291;
+	font-family: 'OpenSans';
+	font-weight: bold;
+	font-size: 14px;	
 }
