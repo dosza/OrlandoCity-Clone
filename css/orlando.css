@@ -267,7 +267,7 @@ header #logotipo {
 
 #estatisticas p{
 	color: #fde092;
-	text-transform: uppercase;
+	
 	font-family: 'OpenSans-Light';
 	font-size: 64px;
 	margin-top: 36px;
@@ -275,6 +275,7 @@ header #logotipo {
 
 #estatisticas p small {
 	color: #fff;
+	text-transform: uppercase;
 	font-size: 24px;
 	display: block;
 }
@@ -284,6 +285,7 @@ header #logotipo {
 	margin-top: 105px; 
 
 }
+
 
 #call-to-action h2 {
 	color:#5e2799;
@@ -301,7 +303,10 @@ header #logotipo {
 #call-to-action p {
 	margin-top: 60px;
 	margin-bottom: 40px;
+	margin-left: 15px;
+	margin-right: 15px;
 	color: #656565;
+
 }
 
  
@@ -339,7 +344,7 @@ footer .row {
 }
 
 footer .row p {
-	line-height: 60px;
+	line-height: 55px;
 	margin-bottom: 0;
 }
 
@@ -366,3 +371,108 @@ footer .text-roxo {
 	font-weight: bold;
 	font-size: 14px;	
 }
+
+footer .logotipo {
+	margin-top: 28px;
+}
+
+
+footer .col-popular-post,
+footer .col-links,   
+footer .col-get-in-touch {
+	margin-top: 40px;
+}
+
+footer .row-cols h4 {
+
+	font-family: 'OpenSans';
+	font-size:  16px;
+	color: #FFF; 
+	padding-bottom: 17px;
+	border-bottom: #242d37 1px solid;	
+}  
+
+footer .row-cols h5 {
+	color: #666;
+	font-family: Arial;
+	font-size: 14px;
+	margin-bottom: 0;
+}
+  
+footer .row-cols time {
+	color: #fde092;
+	font-family: Arial;
+	font-size: 14px;
+}
+
+
+footer .col-links a {
+	 color: #fff;
+	 font-family: Arial;
+	 font-size:  14px;
+}
+
+footer .col-links .fa {
+	margin:0 6px  ;
+
+}
+
+
+footer .col-get-in-touch address {
+	color: #666;
+	font-family: Arial;
+	font-size: 14px;
+	margin-bottom: 6px  ;
+}
+
+footer .col-get-in-touch address span {
+	display: inline-block;
+}
+
+
+footer .col-get-in-touch address i {
+	position: relative;
+	top: -14px;
+}
+footer .col-get-in-touch i {
+	color: #9b9b9b;	
+	font-size: 20px;
+	margin: 0 6px;
+
+}
+
+
+footer .col-get-in-touch a {
+	color: #666 ;
+}
+footer .col-get-in-touch p {
+	line-height: 20px;
+}
+
+footer .list-socials {
+	margin-top:	4px;
+}
+
+
+footer .list-socials li {
+	display: inline-block ;
+	margin-right: 8px;
+}
+
+footer .list-socials a {
+	display: block;  
+	border: #9b9b9b 1px solid;
+	width: 28px;
+	height: 28px;
+	line-height: 28px;
+	border-radius: 14px;
+	text-align: center;
+}
+
+
+footer  .list-socials  i {
+	font-size: 16px;
+	margin: 7px auto;
+}
+
+
