@@ -139,8 +139,11 @@ header .header-black li a {
 header #logotipo {
 	position: absolute;
 	top: 20px;
+	z-index: 3; /*faz logotipo estar em primeiro plano*/
 
 }
+
+
 
 #menu {
 	margin: 12px 0	;
@@ -204,6 +207,7 @@ header #logotipo {
 }
 
 #banner h1 {
+	transition: 1s;
 	color: #fff;
 	top: 300px;
 	position: relative;
@@ -211,6 +215,12 @@ header #logotipo {
 	text-shadow: 2px 2px 2px rgba(0,0,0,.45) ;
 	font-family: 'OpenSans-Light';
 	margin-left: 50px;
+}
+
+#banner h1.efeito {
+	color: red;
+	font-size:12em;
+	transition: 1s;	
 }
 
 #banner h1 small {
@@ -426,7 +436,7 @@ footer .col-get-in-touch address {
 }
 
 footer .col-get-in-touch address span {
-	display: inline-block;
+	display: inline-block; 
 }
 
 
