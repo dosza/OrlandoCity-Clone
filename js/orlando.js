@@ -2,6 +2,7 @@
 
 
 $(document).ready(function (){
+
 		//captura evento passar mouse no logotipo 
 	$("#logotipo").on("mouseover", function (){
 		
@@ -20,5 +21,26 @@ $(document).ready(function (){
 	
 		$("li.search").removeClass("ativo");
 
+	});
+
+
+	$(".thumbnails").owlCarousel({
+		loop:true,
+		margin: 10,
+		nav:true,
+		navText: ["Anterior","Próximo"],
+		responsive: {
+			0:{
+				items: 1
+			},
+
+			480:{
+				items: 3
+			},
+
+			1000:{
+				items: 4
+			}
+		}
 	});
 });

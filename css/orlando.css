@@ -278,6 +278,14 @@ header #logotipo {
 	font-family: 'OpenSans';
 }
 
+#news .thumbnails .item-inner {
+	padding: 10px;
+}
+
+#news .thumbnails .item-inner  img {
+	width: 100%;
+}
+
 
 #estatisticas {
 	background-color: #5e2799;
