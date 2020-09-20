@@ -155,6 +155,14 @@ header #logotipo {
 
 #menu li.search {
 	width: 182px;
+	transition-timing-function: cubic-bezier(1,-.91,0.91,1); /*função para controlar a aceleração*/
+	transition-duration: 1s; 
+}
+
+
+#menu li.search.ativo {
+	width: 300px;
+
 }
 
 #menu li.search input {
@@ -166,6 +174,9 @@ header #logotipo {
 	padding: 8px;
 }
 
+#menu li.search.ativo input { /*adiciona efeito para input*/
+	width: 300px;
+}
 /*menu li.search input::-webkit-input-placeholder {*/
 #menu li.search ::-webkit-input-placeholder {
 	color: #fff; /*rgba(255,255,255,0.5);*/
