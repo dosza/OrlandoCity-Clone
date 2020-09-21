@@ -1,5 +1,4 @@
-//orlando.css
-
+//efeitos.css
 
 $(document).ready(function (){
 
