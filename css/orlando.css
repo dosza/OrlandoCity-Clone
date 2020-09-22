@@ -509,3 +509,11 @@ video {
 	width: 50%;
 
 }
+
+.videoplayer {
+	margin-top: 2.5%;
+}
+
+.videoplayer h2 {
+	text-transform: uppercase;
+}
