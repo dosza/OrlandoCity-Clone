@@ -510,10 +510,12 @@ video {
 
 }
 
-.videoplayer {
-	margin-top: 2.5%;
+
+h2.lastest-videos {
+	margin-top: 200px;
 }
 
-.videoplayer h2 {
-	text-transform: uppercase;
+.video-player {
+	width: 60vw;
+	margin: 200px 200px;
 }

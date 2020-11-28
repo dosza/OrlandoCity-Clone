@@ -3,12 +3,13 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Orlando City</title>
-		<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
 		
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="lib/node_modules/owl.carousel2/dist/assets/owl.carousel.min.css">
-	<link rel="stylesheet" type="text/css" href="lib/node_modules/owl.carousel2/dist/assets/owl.theme.default.min.css">
-	<link rel="stylesheet" type="text/css" href="css/orlando.css">
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="lib/plyr/dist/plyr.css">
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="lib/node_modules/owl.carousel2/dist/assets/owl.carousel.min.css">
+		<link rel="stylesheet" type="text/css" href="lib/node_modules/owl.carousel2/dist/assets/owl.theme.default.min.css">
+		<link rel="stylesheet" type="text/css" href="css/orlando.css">
 
 	</head>
 
@@ -97,20 +98,24 @@
 					</div>
 
 
-					<div class="row videoplayer">
+					<div class="row">
 						
-						<video src="mp4/highlights.mp4"  controls poster="img/highlights.jpg"></video> <!-- tag do html para play de vídeos. controls: exibe controles do player. autoplay: toca o vídeo automaticamente. poster: permite voce substituir previa do vídeo por uma imagem ou frame.-->
+						<div class="mx-auto video-player"> <!--classe do boostrap para alinhar vídeo-->
+						
+							<video id="player" src="mp4/highlights.mp4" autoplay pyacontrols data-poster="img/highlights.jpg"></video> <!-- tag do html para play de vídeos. controls: exibe controles do player. autoplay: toca o vídeo automaticamente. poster: permite voce substituir previa do vídeo por uma imagem ou frame.-->
 
-						<input type="range" min="0" max="1" step="0.01" value="1" id="volume">
+							<input type="range" min="0" max="1" step="0.01" value="1" id="volume">
 
-						<button type="button" id="btn-play-pause" class="btn btn-success">PLAY</button>
+							<button type="button" id="btn-play-pause" class="btn btn-success">PLAY</button>
+						</div>
+
 
 					</div>
 
-					<div id="news" class="container" style="top:0">
+					<div id="news" class="container" >
 
 						<div class="row text-center">
-							<h2>Latest News</h2>
+							<h2 class="lastest-videos">Latest News</h2>
 							<hr>
 						</div>
 
@@ -254,12 +259,14 @@
 				</div>
 
 			</div><!-- rodapé-->
+
 		</footer>
 
 		<script type="text/javascript" src="lib/node_modules/jquery/dist/jquery.min.js"></script>
 		<script type="text/javascript" src="lib/node_modules/owl.carousel2/dist/owl.carousel.min.js"></script>
 		<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/efeitos.js"></script>
+		<script type="text/javascript" src="lib/plyr/dist/plyr.js"></script>
 
 		<script>
 
@@ -271,8 +278,10 @@
 
 					$("video").attr({
 						 "src":"mp4/"+$(this).data('video')+".mp4",
-						 "poster":"img/"+$(this).data('video')+".jpg"
+						 "data-poster":"img/"+$(this).data('video')+".jpg"
 					});
+
+				
 
 
 				});
@@ -285,7 +294,6 @@
 
 
 				$("#btn-play-pause").on("click", function(){
-					
 
 					var video = $("video")[0];
 
@@ -299,6 +307,8 @@
 
 					$(this).toggleClass("btn-success btn-danger");
 				});
+
+				const player = new Plyr("#player");
 
 			});
 	</script>
