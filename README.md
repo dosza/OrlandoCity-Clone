@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-	<img src="https://raw.githubusercontent.com/DanielOliveiraSouza/OrlandoCity-Clone/master/screenshots/orlando_home_01.png" alt="homepage" width="90%" />
+	<img src="https://raw.githubusercontent.com/DanielOliveiraSouza/OrlandoCity-Clone/master/screenshots/orlando_home_01.png" alt="homepage"/>
 </p>
 
 
