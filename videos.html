@@ -102,7 +102,9 @@
 						
 						<div class="mx-auto video-player"> <!--classe do boostrap para alinhar vídeo-->
 						
-							<video id="player" src="mp4/highlights.mp4" autoplay pyacontrols data-poster="img/highlights.jpg"></video> <!-- tag do html para play de vídeos. controls: exibe controles do player. autoplay: toca o vídeo automaticamente. poster: permite voce substituir previa do vídeo por uma imagem ou frame.-->
+							<video id="player" src="mp4/highlights.mp4" autoplay pyacontrols data-poster="img/highlights.jpg">
+								<track kind="captions"  label="Português (Brasil)" src="vtt/legendas.vtt" srclang="pt-br" default/> 
+							</video> <!-- tag do html para play de vídeos. controls: exibe controles do player. autoplay: toca o vídeo automaticamente. poster: permite voce substituir previa do vídeo por uma imagem ou frame.-->
 
 							<input type="range" min="0" max="1" step="0.01" value="1" id="volume">
 
