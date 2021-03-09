@@ -17,7 +17,7 @@
 
 	#logotipo {
 		left:32%;
-	}
+	}	
 
 	#btn-bars, #btn-search {
 		color:#fff;
@@ -77,4 +77,7 @@
 		width: 80%;
 	}
 
+	.owl-carousel .owl-item img {
+		display: inline !important; /* important previne a sobrescrita do cssz*/
+	}
 }
