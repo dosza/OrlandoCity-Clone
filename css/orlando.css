@@ -519,3 +519,7 @@ h2.lastest-videos {
 	width: 60vw;
 	margin: 200px 200px;
 }
+
+#btn-bars, #btn-search {
+	display: none;
+}
