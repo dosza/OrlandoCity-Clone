@@ -2,6 +2,28 @@
 
 $(document).ready(function (){
 
+	var carouselProps = {		
+    	loop:true, 
+		margin: 10,
+		//center:true,
+	//	nav:true,
+		//navText: ["Anterior","Próximo"], //define label dos botões voltar e proximo
+		responsive: {
+			0:{ //define itens para telas menores <480
+				items: 1 //define um item por slide
+			},
+
+			480:{ 
+				items: 3 //define 3 itens no sliddr
+			},
+
+			1000:{ //para resolução 1000dp define 4 itens
+				items: 4 
+			}
+		
+		}
+	};
+
 		//captura evento passar mouse no logotipo 
 	$("#logotipo").on("mouseover", function (){
 		
@@ -22,27 +44,16 @@ $(document).ready(function (){
 
 	});
 
-	//adciona um slider na classe thumbnails
-	$(".thumbnains").ready(function(){
-		var owl = $('.owl-carousel');
-        owl.owlCarousel({
-			loop:true, 
-			margin: 10,
-		//	nav:true,
-			//navText: ["Anterior","Próximo"], //define label dos botões voltar e proximo
-			responsive: {
-				0:{ //define itens para telas menores <480
-					items: 1 //define um item por slide
-				},
+	$('.thumbnails').owlCarousel(carouselProps);
 
-				480:{ 
-					items: 3 //define 3 itens no sliddr
-				},
+	var owl = $('.owl-carousel').data('owl.carousel');
+	$('#btn-news-prev').on('click',()=>{
+		//var owl = $('.owl-carousel').data('owl.carousel');
+		owl.prev();
+	})
 
-				1000:{ //para resolução 1000dp define 4 itens
-					items: 4 
-				}
-			}
-		})
-	});
+	$('#btn-news-next').on('click',()=>{
+		//var owl = $('.owl-carousel').data('owl.carousel'); 
+		owl.next();
+	})
 });
