@@ -162,4 +162,33 @@
 		margin-top: 60px;
 	}
 
+	.copyright-mobile p {
+		font-size: 10px;
+		line-height: 0;
+	}
+
+	.copyright-mobile .pull-left {
+		float : inherit ! important;
+	}
+
+
+	footer .row p {
+		text-align: center;
+		line-height: 20px;	
+	}
+
+	footer .row p: first-child {		
+		margin-top: 10px;
+	}
+
+	footer .text-roxo {
+		margin-right: 25px;
+
+	}
+
+	footer .row {
+		margin:0;
+	}
+
+
 }
