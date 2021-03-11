@@ -25,13 +25,19 @@ $(document).ready(function (){
 	};
 
 
-
+	//evento para abrir menu ao clicar em btn-bars
 	$("#btn-bars").on( 'click', ()=>{
-		var isDrawMenu=$('header').hasClass('open-menu')
-		if ( isDrawMenu)
-			$('header').removeClass('open-menu')
-		else
+		var isOpenMenu = $('header').hasClass('open-menu')
+		if ( !isOpenMenu ) 
 			$('header').addClass('open-menu')
+	});
+
+
+	//evento para fechar menu
+	$("#btn-close-menu").on('click', ()=>{
+		var isOpenMenu = $('header').hasClass('open-menu')
+		if ( isOpenMenu ) 
+			$('header').removeClass('open-menu')
 	});
 
 		//captura evento passar mouse no logotipo 
@@ -67,7 +73,7 @@ $(document).ready(function (){
 	});
 
 
-
+	//adiciona ação para botão voltar
 	$("#page-up").on('click',function(event){
 
 		$("html,body").animate(
