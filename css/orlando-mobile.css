@@ -23,7 +23,8 @@
 
 	header #logotipo {
 		left:32%;
-		z-index: 6;
+		z-index: 10;
+		transition: 1s;
 	}
 
 	header.open-menu #logotipo {
@@ -31,6 +32,7 @@
 		top: 50px;
 		height: 76px;
 		left: calc(40% -height*0.5);
+		transform: rotate(360deg);
 
 	}	
 

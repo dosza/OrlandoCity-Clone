@@ -27,17 +27,13 @@ $(document).ready(function (){
 
 	//evento para abrir menu ao clicar em btn-bars
 	$("#btn-bars").on( 'click', ()=>{
-		var isOpenMenu = $('header').hasClass('open-menu')
-		if ( !isOpenMenu ) 
-			$('header').addClass('open-menu')
+		$('header').toggleClass('open-menu')
 	});
 
 
 	//evento para fechar menu
-	$("#btn-close-menu").on('click', ()=>{
-		var isOpenMenu = $('header').hasClass('open-menu')
-		if ( isOpenMenu ) 
-			$('header').removeClass('open-menu')
+	$(".btn-close, #menu-mobile-mask").on('click', ()=>{
+		$('header').removeClass('open-menu')
 	});
 
 		//captura evento passar mouse no logotipo 
