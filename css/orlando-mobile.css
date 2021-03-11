@@ -16,12 +16,25 @@
 		position: fixed;
 		top:0;
 		width: 100%;
+		z-index: 6;
 
 	}
 	.header-black ul, #menu {
 		display: none;
 	}
 
+	header #logotipo {
+		left:32%;
+		z-index: 6;
+	}
+
+	header.open-menu #logotipo {
+		position: fixed;
+		top: 50px;
+		height: 76px;
+		left: calc(40% -height*0.5);
+
+	}	
 
 	header #menu-mobile {
 		position: fixed;
@@ -47,10 +60,7 @@
 		z-index: 4;
 	}
 
-	#logotipo {
-		left:32%;
-		z-index: 6;
-	}	
+	
 
 	#btn-bars, #btn-search {
 		color:#fff;

@@ -26,15 +26,13 @@ $(document).ready(function (){
 
 
 
-	/*$("#btn-bars").on( 'click', ()=>{
-		if( $('header').hasClass('open-menu')){
+	$("#btn-bars").on( 'click', ()=>{
+		var isDrawMenu=$('header').hasClass('open-menu')
+		if ( isDrawMenu)
 			$('header').removeClass('open-menu')
-			$("btn-bars").css('z-index',7);
-		}else{
+		else
 			$('header').addClass('open-menu')
-			$("btn-bars").css('z-index',7);
-		}
-	})*/
+	});
 
 		//captura evento passar mouse no logotipo 
 	$("#logotipo").on("mouseover", function (){
