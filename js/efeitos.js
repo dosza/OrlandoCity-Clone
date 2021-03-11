@@ -24,6 +24,18 @@ $(document).ready(function (){
 		}
 	};
 
+
+
+	/*$("#btn-bars").on( 'click', ()=>{
+		if( $('header').hasClass('open-menu')){
+			$('header').removeClass('open-menu')
+			$("btn-bars").css('z-index',7);
+		}else{
+			$('header').addClass('open-menu')
+			$("btn-bars").css('z-index',7);
+		}
+	})*/
+
 		//captura evento passar mouse no logotipo 
 	$("#logotipo").on("mouseover", function (){
 		
