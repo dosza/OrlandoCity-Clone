@@ -370,6 +370,7 @@ footer {
 
 footer .row {
 	width: 100%;
+	margin-left: 0;
 }
 
 footer .row p {
@@ -378,7 +379,7 @@ footer .row p {
 }
 
 footer .row-cinza-claro {
-	height: 200px;
+	height: 240px;
 	background-color: #171f26;
 }
 
