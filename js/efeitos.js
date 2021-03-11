@@ -30,9 +30,8 @@ $(document).ready(function (){
 		$("#banner h1").addClass("efeito");
 		
 		}).on("mouseout",function(){ //captura evento do mouse sair
-		
 			$("#banner h1").removeClass("efeito"); 
-		}) ;
+		});
 
 	$("#input-search").on("focus", function (){ //evento input-search  ganha o foco
 
@@ -55,5 +54,15 @@ $(document).ready(function (){
 	$('#btn-news-next').on('click',()=>{
 		//var owl = $('.owl-carousel').data('owl.carousel'); 
 		owl.next();
-	})
+	});
+
+
+
+	$("#page-up").on('click',function(event){
+
+		$("html,body").animate(
+		{ scrollTop:0 },1000);
+
+		event.preventDefault();	
+	});
 });

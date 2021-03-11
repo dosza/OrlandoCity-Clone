@@ -11,6 +11,13 @@
 
 /* Tamanho padrão para smartphone */
 @media only screen and ( max-width: 480px){
+
+	.header-black { /*fixa o header-blac  */
+		position: fixed;
+		top:0;
+		width: 100%;
+
+	}
 	.header-black ul, #menu {
 		display: none;
 	}
@@ -235,9 +242,13 @@
 
 	}
 
-	footer .hidden-sm-up {
+	footer .visible-xs {
 		margin-top: -10px;
 		margin-bottom: 10px;
+	}
+
+	footer .page-up {
+		display: inline-block !important;
 	}
 
 

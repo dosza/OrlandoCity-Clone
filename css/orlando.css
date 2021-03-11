@@ -525,3 +525,7 @@ h2.lastest-videos {
 #btn-news-prev, #btn-news-next {
 	display: none;
 }
+
+footer .page-up {
+	display: none !important;
+}
