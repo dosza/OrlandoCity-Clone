@@ -16,6 +16,7 @@
 		position: fixed;
 		top:0;
 		width: 100%;
+		z-index: 9;
 	}
 	.header-black ul, #menu {
 		display: none;
@@ -23,8 +24,8 @@
 
 	header #logotipo {
 		left:32%;
-		z-index: 10;
 		transition: 1s;
+		z-index: 10;
 	}
 
 	header.open-menu #logotipo {
@@ -103,7 +104,26 @@
 
 
 
-	
+	header #input-search-mobile {
+		position: fixed;
+		transition: 1s;
+		top: -40px;
+		width: 70%;
+		left: 15%;
+		height: 40px;
+		background-color: #000;
+		border:none;
+		color: #fff;
+		outline: 0; 
+	}
+
+	header.open-search #input-search-mobile {
+	top: 0;	
+	}
+
+	header.open-search #logotipo {
+		z-index: 9;
+	}
 
 	#btn-bars, #btn-search {
 		color:#fff;
