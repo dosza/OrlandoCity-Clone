@@ -530,3 +530,72 @@ footer .page-up {
 	display: none !important;
 }
 
+/* Shop.php */
+
+.text-arial-cinza {
+	font-family: arial;
+	font-size: 12px;
+	color: #666;
+}
+
+.text-roxo {
+	color: #6e3ea4;
+}
+
+#destaque-produtos-container {
+	position: relative;
+
+
+}
+
+#destaque-produtos .col-imagem {
+	text-align: center;
+}
+
+#destaque-produtos .col-descricao h2 {
+	font-family: arial;
+	font-size: 20px;
+	color:#666;
+
+}
+
+#destaque-produtos .col-descricao .box-valor {
+	width: 100%;
+	position: relative;
+}
+
+#destaque-produtos .col-descricao .box-valor .text-reais {
+	font-size: 18px;
+	font-weight: bold;
+	position: absolute;
+	top:13px;
+	left: 28px;
+}
+
+#destaque-produtos .col-descricao .box-valor .text-valor {
+	font-size: 50px;
+	position: absolute;
+	top: -17px;
+	left: 54px;
+
+}
+
+#destaque-produtos .col-descricao .box-valor .text-valor-centavos {
+	font-size: 30px;
+	position: relative;
+	top:-44px;
+	left:178px;
+	
+
+}
+
+#destaque-produtos .col-descricao .btn-comprar {
+	font-size: 26px;
+	padding: 10px 0;
+}
+
+#destaque-produtos .col-descricao .btn-comprar .fa {
+	font-size: 34px;  
+}
+
+
