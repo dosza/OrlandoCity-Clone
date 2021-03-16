@@ -548,6 +548,10 @@ footer .page-up {
 
 }
 
+#destaque-produtos {
+	margin: 30px auto;
+}
+
 #destaque-produtos .col-imagem {
 	text-align: center;
 }
