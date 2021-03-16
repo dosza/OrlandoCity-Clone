@@ -22,9 +22,9 @@ $app->get(
 );
 
 
-$app->get('/old',
+$app->get('/shop',
     function (){
-        require_once('server/index.html');
+        require_once('view/shop.php');  
     }
 );
 $app->run();

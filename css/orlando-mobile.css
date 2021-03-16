@@ -350,7 +350,18 @@
 	.row .videoplayer {
 	    display: block;
     	margin: 0 auto;
-    	max-width: 90%;
+    	max-width: 100%;
+    	width: 85%;
+    	height: auto;
     	margin-top: 20px;
     	margin-bottom: 20px;
 	}
+
+	 #volume {
+
+		display: none;
+	}
+	#btn-play-pause {
+		margin-top: 20px;
+	}
+}
