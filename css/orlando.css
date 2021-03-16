@@ -516,7 +516,7 @@ h2.lastest-videos {
 	margin-top: 200px;
 }
 
-.video-player {
+.videoplayer {
 	width: 60vw;
 	margin: 200px 200px;
 }
@@ -529,3 +529,4 @@ h2.lastest-videos {
 footer .page-up {
 	display: none !important;
 }
+

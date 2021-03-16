@@ -341,5 +341,16 @@
 		display: inline-block !important;
 	}
 
+	.row .plyr__video {
+		text-align: center;
+		justify-content: center;
+		align-items: center;
+	}
 
-}
+	.row .videoplayer {
+	    display: block;
+    	margin: 0 auto;
+    	max-width: 90%;
+    	margin-top: 20px;
+    	margin-bottom: 20px;
+	}

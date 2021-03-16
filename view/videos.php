@@ -15,9 +15,8 @@
 
 			<div class="row">
 				
-				<div class="mx-auto video-player"> <!--classe do boostrap para alinhar vídeo-->
-				
-					<video id="player" src="mp4/highlights.mp4" autoplay pyacontrols data-poster="img/highlights.jpg">
+				<div class="videoplayer">
+					<video id="player" src="mp4/highlights.mp4" autoplayplaysinline controls data-poster="img/highlights.jpg">
 						<track kind="captions"  label="Português (Brasil)" src="vtt/legendas.vtt" srclang="pt-br" default/> 
 					</video> <!-- tag do html para play de vídeos. controls: exibe controles do player. autoplay: toca o vídeo automaticamente. poster: permite voce substituir previa do vídeo por uma imagem ou frame.-->
 
@@ -25,7 +24,6 @@
 
 					<button type="button" id="btn-play-pause" class="btn btn-success">PLAY</button>
 				</div>
-
 
 			</div>
 
