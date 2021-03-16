@@ -43,9 +43,10 @@ $(document).ready(function (){
 
 	});
 
-	var thumbnails = $('.thumbnails');
+	//var thumbnails = $('.thumbnails');
 
-	thumbnails.owlCarousel(carouselProps);
+	//thumbnails.owlCarousel(carouselProps);
+	$('.thumbnails').owlCarousel(carouselProps);
 
 	$('.thumbnails').removeClass('owl-theme')
 

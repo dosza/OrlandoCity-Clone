@@ -75,25 +75,27 @@
 
 			$(function(){
 
+
+				//função anonima para aplicar o carousel
 				$(function(){
-				var destaqueProps={
+
+				$('#destaque-produtos').owlCarousel({
+					autoPlay: 5000,
 					items:1,
 					singleItem:true
-				};
+				});
 
-				$('#destaque-produtos').owlCarousel(destaqueProps);
+				}()) // () interno chama a função anonima
 
-				}())
+				var owlDestaque = $('#destaque-produtos').data('owlCarousel');
 				
-				var btnDestaPrev = $('#btn-destaque-prev');
-				var btnDestaNext = $('#btn-destaque-next');
-				btnDestaPrev.on('click',function (){
-					$('#destaque-produtos').data('owlCarousel').prev();
-				})
+				$('#btn-destaque-prev').on('click',function (){
+					owlDestaque.prev();
+				});
 
-				btnDestaNext.on('click',function(){
-					$('#destaque-produtos').data('owlCarousel').next();	
-				})
+				$('#btn-destaque-next').on('click',function(){
+					owlDestaque.next();	
+				});
 			});
 
 		</script>
