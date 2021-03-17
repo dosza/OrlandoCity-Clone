@@ -347,21 +347,37 @@
 		align-items: center;
 	}
 
+
+
 	.row .videoplayer {
 	    display: block;
-    	margin: 0 auto;
-    	max-width: 100%;
-    	width: 85%;
+    	max-width: 80%;
+    	width: 80%;
     	height: auto;
-    	margin-top: 20px;
-    	margin-bottom: 20px;
+    	margin:20px;
+    	padding: 20px;
+    	position: relative;
+    	top: 0;
+    	bottom: 0;
+    	left:10px;
+    	right: 0;
+
 	}
+
+	 video {
+		width:80%;
+		height: auto;
+	}
+	
 
 	 #volume {
 
 		display: none;
+		margin-bottom: 10px;
 	}
 	#btn-play-pause {
-		margin-top: 20px;
+		margin-top: 10px;
+		display: none;
+		z-index: 1;
 	}
 }
