@@ -4,7 +4,7 @@
 
 			<div class="container" id="destaque-produtos-container">
 
-				<div id="destaque-produtos" class='olw-carousel'>
+				<div id="destaque-produtos">
 
 					<div class="item">
 
@@ -68,7 +68,7 @@
 			<div id="promocoes" class="container">
 				<div class="col-md-2">
 
-					<div class="box-promocao">
+					<div class="box-promocao box-1">
 						<p>escolha por desconto</p>
 						
 					</div>
@@ -154,6 +154,9 @@
 				$('#btn-destaque-next').on('click',function(){
 					owlDestaque.next();	
 				});
+
+
+				$('#destaque-produtos').removeClass('owl-theme');
 			});
 
 		</script>

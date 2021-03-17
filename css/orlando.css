@@ -627,11 +627,59 @@ footer .page-up {
 }
 
 #promocoes .box-promocao {
+	background: #6e3ea4;
 	width: 100%;
 	height:150px;
-	background: #6e3ea4;
+	position: relative;
 	text-align: center;
 	color: #fff;
-	margin:10px;
-	padding-top:45px;
+}
+
+#promocoes .box-promocao.box-1 {
+	font-family: arial;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 7px;
+
+}
+
+#promocoes .box-promocao p {
+	position:absolute;
+	margin-top: 58px;
+
+}
+
+#promocoes .box-promocao .text-ate {
+	font-size: 20px;
+	font-weight: bold;
+	font-family: arial;
+	position: absolute;
+	left:15px;
+	top: 5px;
+
+}
+
+#promocoes .box-promocao .text-numero {
+	font-size: 120px;
+	font-family: 'OpenSans-Light';
+	position: absolute;
+	top: -10px;
+	left: 10px;
+}
+
+#promocoes .box-promocao .text-porcento {
+	font-family: 'OpenSans';
+	font-size: 64px;
+	position: absolute;
+	top: 15px;
+	right:2px;
+
+}
+
+#promocoes .box-promocao .text-off {
+	font-size: 42px;
+	font-family: 'OpenSans-Light';
+	position: absolute;
+	top: 78px;
+	right:3px;
 }
