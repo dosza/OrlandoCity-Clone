@@ -683,3 +683,32 @@ footer .page-up {
 	top: 78px;
 	right:3px;
 }
+
+
+.box-produto-info a {
+	text-decoration: none;
+}
+.box-produto-info h3   {
+	font-size: 12px;
+	font-family: arial;
+	color: #666;
+}
+
+.box-produto-info .produto-img{
+	width: 100%;
+}
+
+.box-produto-info .text-qtd-reviews { 
+
+}
+
+.box-produto-info .text-qtd-valor {
+	font-size: 26px;
+	font-weight: bold;
+
+
+}
+
+.box-produto-info .text-qtd-parcelado {
+
+}
