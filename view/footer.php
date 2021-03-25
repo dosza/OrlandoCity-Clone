@@ -101,8 +101,9 @@
 		</footer>
 
 		<script type="text/javascript" src="lib/node_modules/jquery/dist/jquery.min.js"></script>
-		<script type="text/javascript" src="lib/node_modules/owl.carousel/owl-carousel/owl.carousel.min.js"></script>
+		<script type="text/javascript" src="lib/owl.carousel/owl-carousel/owl.carousel.min.js"></script>
 		<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="lib/node_modules/raty-js/lib/jquery.raty.js"></script>
 		<script type="text/javascript" src="js/efeitos.js"></script>
 
 

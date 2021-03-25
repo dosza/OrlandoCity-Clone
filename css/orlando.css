@@ -712,3 +712,17 @@ footer .page-up {
 .box-produto-info .text-qtd-parcelado {
 
 }
+
+.title-default-roxo  h2  {
+    color: #5e2799;
+    font-family: 'OpenSans-Light';
+    font-size: 48px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.title-default-roxo hr {
+	border: #FDE192 solid 8px;
+	width: 200px;
+	margin: 0 auto;
+}

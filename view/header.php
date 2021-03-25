@@ -7,8 +7,10 @@
 		<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
 		
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="lib/node_modules/owl.carousel/owl-carousel/owl.carousel.css">
-	<link rel="stylesheet" type="text/css" href="lib/node_modules/owl.carousel/owl-carousel/owl.theme.css">
+	<link rel="stylesheet" type="text/css" href="lib/owl.carousel/owl-carousel/owl.carousel.css">
+	<link rel="stylesheet" type="text/css" href="lib/owl.carousel/owl-carousel/owl.theme.css">
+
+	<link rel="stylesheet" type="text/css" href="lib/node_modules/raty-js/lib/jquery.raty.css">
 	<link rel="stylesheet" type="text/css" href="css/orlando.css">
 	<link rel="stylesheet" type="text/css" href="css/orlando-mobile.css">
 
@@ -27,6 +29,7 @@
 							<li><a href="#">News</a></li>
 							
 							<li><a href="#">Schedule</a></li>
+							<li><a href="/shop">Shop</a></li>
 									
 						</ul>
 
@@ -92,6 +95,7 @@
 									<li><a href="#">News</a></li>
 									
 									<li><a href="#">Schedule</a></li>
+									<li><a href="/shop">Shop</a></li>
 									
 									<li class="search">
 										<div class="input-group">
