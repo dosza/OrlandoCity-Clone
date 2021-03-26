@@ -134,13 +134,53 @@
 							<a href="#">
 								<img src="img/produtos/panelas.png" alt="Panelas" class="produto-img">
 								<h3>Conjunto de Panelas Tramontina Versalhes Alumínio Antiderente 5</h3>
-								<div class="estrelas"> </div>
+								<div class="estrelas" data-score="3"> </div>
 								<div class="text-qtd-reviews text-arial-cinza">(300)</div>
 								<div class="text-qtd-valor text-roxo">R$ 109,90</div>
 								<div class="text-parcelado text-arial-cinza">10x de R$ 10,99 sem juros</div>
 							</a>
 						</div>
 					</div>
+
+					<div class="col-md-3">
+						<div class="box-produto-info">
+							<a href="#">
+								<img src="img/produtos/panelas.png" alt="Panelas" class="produto-img">
+								<h3>Conjunto de Panelas Tramontina Versalhes Alumínio Antiderente 5</h3>
+								<div class="estrelas" data-score="5"> </div>
+								<div class="text-qtd-reviews text-arial-cinza">(300)</div>
+								<div class="text-qtd-valor text-roxo">R$ 109,90</div>
+								<div class="text-parcelado text-arial-cinza">10x de R$ 10,99 sem juros</div>
+							</a>
+						</div>
+					</div>
+
+					<div class="col-md-3">
+						<div class="box-produto-info">
+							<a href="#">
+								<img src="img/produtos/panelas.png" alt="Panelas" class="produto-img">
+								<h3>Conjunto de Panelas Tramontina Versalhes Alumínio Antiderente 5</h3>
+								<div class="estrelas" data-score="2.5"> </div>
+								<div class="text-qtd-reviews text-arial-cinza">(300)</div>
+								<div class="text-qtd-valor text-roxo">R$ 109,90</div>
+								<div class="text-parcelado text-arial-cinza">10x de R$ 10,99 sem juros</div>
+							</a>
+						</div>
+					</div>
+
+					<div class="col-md-3">
+						<div class="box-produto-info">
+							<a href="#">
+								<img src="img/produtos/panelas.png" alt="Panelas" class="produto-img">
+								<h3>Conjunto de Panelas Tramontina Versalhes Alumínio Antiderente 5</h3>
+								<div class="estrelas" data-score="4"> </div>
+								<div class="text-qtd-reviews text-arial-cinza">(300)</div>
+								<div class="text-qtd-valor text-roxo">R$ 109,90</div>
+								<div class="text-parcelado text-arial-cinza">10x de R$ 10,99 sem juros</div>
+							</a>
+						</div>
+					</div>
+
 				</div>
 			</div>
 
@@ -149,6 +189,7 @@
 
 		<!-- Rodapé-->
 		<?php include_once('footer.php');?>
+
 
 
 		<script>
@@ -180,6 +221,17 @@
 
 
 				$('#destaque-produtos').removeClass('owl-theme');
+
+
+				$('.estrelas').each(function(){
+					$(this).raty({
+					path:'lib/node_modules/raty-js/lib/images',
+					score: parseInt($(this).data('score')),
+	
+					});
+				})
+
+
 			});
 
 		</script>
