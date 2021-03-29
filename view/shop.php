@@ -168,8 +168,64 @@
 
 		<script>
 
-			angular.module("shop", []).controller("destaque-controller", function ($scope){
+			angular.module("shop", []).controller("destaque-controller", function ($scope, $http ){
+
+				$scope.produtos = [];
+
+				var initCarousel = function (){
+
+				$(function (){
+
+				//função anonima para aplicar o carousel
+					$(function(){
+
+					$('#destaque-produtos').owlCarousel({
+						autoPlay: 5000,
+						items:1,
+						singleItem:true
+					});
+
+					}()) // () interno chama a função anonima
+
+					var owlDestaque = $('#destaque-produtos').data('owlCarousel');
+					
+					$('#btn-destaque-prev').on('click',function (){
+						owlDestaque.prev();
+					});
+
+					$('#btn-destaque-next').on('click',function(){
+						owlDestaque.next();	
+					});
+
+
+					$('#destaque-produtos').removeClass('owl-theme');
+
+
+					$('.estrelas').each(function(){
+						$(this).raty({
+						path:'lib/node_modules/raty-js/lib/images',
+						score: parseInt($(this).data('score')),
+		
+						});
+					});
+				});
+
+				}
+
+				$http({
+					method: "GET",
+					url:"produtos",
+				}).then(function successCallback(response){
+					$scope.produtos = response.data;
+					setTimeout(1000);
+					initCarousel();
+
+
+				}, function errorCallback(response){
+
+				});
 				
+				/*
 				$scope.produtos = [];
 
 				$scope.produtos.push({
@@ -191,49 +247,10 @@
 					parcela:"250,00",
 					total:"2500,00"
 				});
+				*/
 
 			});
 		
-
-			$(function(){
-
-
-				//função anonima para aplicar o carousel
-				$(function(){
-
-				$('#destaque-produtos').owlCarousel({
-					autoPlay: 5000,
-					items:1,
-					singleItem:true
-				});
-
-				}()) // () interno chama a função anonima
-
-				var owlDestaque = $('#destaque-produtos').data('owlCarousel');
-				
-				$('#btn-destaque-prev').on('click',function (){
-					owlDestaque.prev();
-				});
-
-				$('#btn-destaque-next').on('click',function(){
-					owlDestaque.next();	
-				});
-
-
-				$('#destaque-produtos').removeClass('owl-theme');
-
-
-				$('.estrelas').each(function(){
-					$(this).raty({
-					path:'lib/node_modules/raty-js/lib/images',
-					score: parseInt($(this).data('score')),
-	
-					});
-				})
-
-
-			});
-
 		</script>
 
 
