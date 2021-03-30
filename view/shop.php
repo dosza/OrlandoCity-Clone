@@ -9,7 +9,9 @@
 					<div class="item" ng-repeat="produto  in produtos">
 
 						<div class="col-sm-6 col-imagem">
-							<img src="img/produtos/{{produto.foto_principal}}" alt="{{produto.nome_prod_longo}}">
+							<a href="produto-{{produto.id_prod}}">
+								<img src="img/produtos/{{produto.foto_principal}}" alt="{{produto.nome_prod_longo}}">
+							</a>
 							
 						</div>
 
@@ -105,7 +107,7 @@
 				<div class="row">
 					<div class="col-md-3" ng-repeat="produto in buscados">
 						<div class="box-produto-info">
-							<a href="#">
+							<a href="produto-{{produto.id_prod}}">
 								<img src="img/produtos/{{produto.foto_principal}}" alt="{{produto.nome_prod_longo}}" class="produto-img">
 								<h3>{{produto.nome_prod_longo}}</h3>
 								<div class="estrelas" data-score={{produto.media}}> </div>
