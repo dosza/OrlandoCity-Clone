@@ -168,10 +168,72 @@ $app->get('/carrinho-dados',
 
 });
 
-$app->post('/carrinho', 
-    function(){
-        $request_body  = json_decode(file_get_contents('php://input'),true);
-        var_dump($request_body);
+
+$app->get('/carrinhoAdd-:id_prod', function ($id_prod){
+    
+    $sql = new Sql();
+    
+    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+    
+    $carrinho = $result[0];
+    
+    $sql  = new Sql();
+    
+    $string_query = "CALL sp_carrinhosprodutos_add(".$carrinho['id_car'].",".$id_prod.")";
+    
+    $sql->query($string_query);
+
+    header("Location: cart");
+    exit;
+
+});
+
+$app->delete("/carrinhoRemoveAll-:id_prod", function($id_prod){
+     $sql = new Sql();
+    
+    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+    
+    $carrinho = $result[0];
+    
+    $sql  = new Sql();
+
+    $sql->query("CALL sp_carrinhosprodutostodos_rem(".$carrinho['id_car'].",".$id_prod.")");
+    echo json_encode(array('success' =>  true));
+
+});
+
+
+$app->post('/carrinho-produto', function(){
+    $data = json_decode(file_get_contents("php://input"),true);
+    $sql = new Sql();
+    
+    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+    $carrinho = $result[0];
+
+    $sql = new Sql();
+
+    $sql->query("CALL sp_carrinhosprodutos_add(".$carrinho['id_car'].",".$data['id_prod'].")");
+
+    echo json_encode(array('success'=> true));
+    
+
+
+});
+
+
+$app->delete('/carrinho-produto', function (){ 
+     $data = json_decode(file_get_contents("php://input"),true);
+    $sql = new Sql();
+    
+    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+    $carrinho = $result[0];
+
+    $sql = new Sql();
+
+    $sql->query("CALL sp_carrinhosprodutos_rem(".$carrinho['id_car'].",".$data['id_prod'].")");
+
+    echo json_encode(array('success'=> true));
+    
 
 });
 

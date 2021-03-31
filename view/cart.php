@@ -29,11 +29,11 @@
 					<td class="col-xs-2">
 						<div class="input-group">
 					      <span class="input-group-btn">
-					        <button class="btn text-roxo" ng-click="addQtd(produto)" type="button"><i class="fa fa-chevron-down"></i></button>
+					        <button class="btn text-roxo" ng-click="removeQtd(produto)" type="button"><i class="fa fa-chevron-down"></i></button>
 					      </span>
-					      <input type="text" class="form-control" ng-model="produto.qtd">
+					      <input type="text" class="form-control" ng-model="produto.qtd_car">
 					      <span class="input-group-btn">
-					        <button class="btn text-roxo" ng-click="removeQtd(produto)" type="button"><i class="fa fa-chevron-up"></i></button>
+					        <button class="btn text-roxo" ng-click="addQtd(produto)" type="button"><i class="fa fa-chevron-up"></i></button>
 					      </span>
 					    </div>
 					</td>
@@ -43,7 +43,7 @@
 					</td>
 					<td class="text-center">R$ {{produto.preco}}</td>
 					<td class="text-center">R$ {{produto.total}}</td>
-					<td class="text-center"><button class="btn text-roxo" type="button"><i class="fa fa-close"></i></button></td>
+					<td class="text-center"><button ng-click="removeAll(produto)" class="btn text-roxo" type="button"><i class="fa fa-close"></i></button></td>
 				</tr>
 			</tbody>
 		</table>
@@ -107,9 +107,6 @@ angular.module("shop", []).controller("cart-controller", function($scope, $http)
 			$scope.produtos  = response.data.produtos;
 
 
-			console.log(response);
-
-
 		}, function(response){
 
 			console.error(response);
@@ -128,7 +125,25 @@ angular.module("shop", []).controller("cart-controller", function($scope, $http)
 			})
 		}).then(function(response){
 
-			console.log(response);
+			carregarCarrinho();
+
+		}, function(){
+
+
+
+		});
+
+	};
+	$scope.removeQtd = function(_produto){
+		$http({
+			method:'DELETE',
+			url:'carrinho-produto',
+			data:JSON.stringify({
+				id_prod:_produto.id_prod
+			})
+		}).then(function(response){
+
+			carregarCarrinho();
 
 		}, function(){
 
@@ -138,9 +153,19 @@ angular.module("shop", []).controller("cart-controller", function($scope, $http)
 
 	};
 
-	$scope.removeQtd = function(_produto){
+	$scope.removeAll = function(_produto){
+		$http({
+			method:'DELETE',
+			url:'carrinhoRemoveAll-' + _produto.id_prod,
+		}).then(function(response){
+			console.log(response);
+			carregarCarrinho();
+
+		}, function(){
 
 
+
+		});
 
 	};
 
