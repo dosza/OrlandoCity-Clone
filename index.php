@@ -137,6 +137,28 @@ $app->get('/produto-:id_prod',
 });
 
 
+$app->get('/cart', 
+    function(){
+        require_once('view/cart.php');
+
+});
+
+
+$app->get('/carrinho-dados', 
+    function(){
+        $request_body  = json_decode(file_get_contents('php://input'),true);
+        var_dump($request_body);
+
+});
+
+$app->post('/carrinho', 
+    function(){
+        $request_body  = json_decode(file_get_contents('php://input'),true);
+        var_dump($request_body);
+
+});
+
+
 $app->run();
 
 ?>
