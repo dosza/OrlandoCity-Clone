@@ -22,7 +22,7 @@
 								<div class="text-por text-arial-cinza">por</div>
 								<div class="text-reais text-roxo">R$</div>
 								<div class="text-valor text-roxo"><?=$produto['preco']?></div>
-								<div class="text-valor-centavos text-roxo">, <?=$produto['centavos']?></div>
+								<div class="text-valor-centavos text-roxo">,<?=$produto['centavos']?></div>
 								<div class="text-parcelas text-arial-cinza">ou em até <?=$produto['parcelas']?>x de R$ <?=$produto['parcela']?></div>
 								<div class="text- text-arial-cinza">total a prazo R$ <?=$produto['total']?></div>
 							</div>

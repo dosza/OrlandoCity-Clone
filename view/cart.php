@@ -10,6 +10,7 @@
 		</div>
 
 		<table id="cart-products" class="table table-bordered">
+			
 			<thead>
 				<tr>
 					<th colspan="2">Produto(s)</th>
@@ -20,6 +21,7 @@
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
+
 			<tbody>
 				<tr ng-repeat="produto in produtos">
 					<td class="text-center"><img src="img/produtos/{{produto.foto_principal}}"></td>
@@ -89,14 +91,24 @@
 <script>
 angular.module("shop", []).controller("cart-controller", function($scope, $http){
 
+
 	var carregarCarrinho = function(){
 
 		$http({
 			method:'GET',
 			url:'carrinho-dados'
 		}).then(function(response){
+			$scope.carrinho = {
+				cep:response.data.cep_car,
+				subtotal:response.data.subtotal_car,
+				total:response.data.total_car
+			};
+
+			$scope.produtos  = response.data.produtos;
+
 
 			console.log(response);
+
 
 		}, function(response){
 
@@ -105,31 +117,6 @@ angular.module("shop", []).controller("cart-controller", function($scope, $http)
 		});
 
 	};
-
-	$scope.carrinho = {
-		cep:'01310-100',
-		subtotal:'1.110,00',
-		frete:'0,00',
-		total:'1.110,00'
-	};
-
-	$scope.produtos = [{
-		nome_prod_long:'Smartphone Motorola Moto X Play Dual',
-		preco:'1.500,99',
-		total:'1.500,99',
-		qtd:1,
-		foto_principal:'iphone.jpg',
-		prazo:'11 dias úteis',
-		id_prod:1
-	},{
-		nome_prod_long:'Smartphone Motorola Moto X Play Dual',
-		preco:'1.500,99',
-		total:'1.500,99',
-		qtd:1,
-		foto_principal:'iphone.jpg',
-		prazo:'10 dias úteis',
-		id_prod:2
-	}];
 
 	$scope.addQtd = function(_produto){
 
@@ -156,6 +143,9 @@ angular.module("shop", []).controller("cart-controller", function($scope, $http)
 
 
 	};
+
+
+	carregarCarrinho();
 
 });
 </script>

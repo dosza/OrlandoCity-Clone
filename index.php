@@ -1,6 +1,8 @@
 <?php
 require 'inc/Slim-2.x/Slim/Slim.php';
-require 'inc/configuration.php';    
+require 'inc/configuration.php'; 
+
+session_start();   
 
 \Slim\Slim::registerAutoloader();
 
@@ -146,8 +148,23 @@ $app->get('/cart',
 
 $app->get('/carrinho-dados', 
     function(){
-        $request_body  = json_decode(file_get_contents('php://input'),true);
-        var_dump($request_body);
+
+        $sql = new Sql();
+
+        $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+        $carrinho = $result[0];
+        $carrinho['total_car'] = number_format((float)$carrinho['total_car'],2,',','.');
+        $carrinho['subtotal_car'] =number_format((float)$carrinho['subtotal_car'],2,',','.');
+        $carrinho['frete_car'] = number_format((float)$carrinho['frete_car'],2,',','.');
+
+        $id_car = $carrinho['id_car'];
+
+
+        $sql = new Sql();
+
+        $string_query ="CALL sp_carrinhosprodutos_list(".$id_car.")";
+        $carrinho['produtos'] = $sql->select($string_query);
+        echo json_encode($carrinho);
 
 });
 
