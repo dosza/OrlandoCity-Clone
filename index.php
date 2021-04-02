@@ -1,415 +1,297 @@
 <?php
-	require_once("inc/configuration.php");
+require 'inc/Slim-2.x/Slim/Slim.php';
+require 'inc/configuration.php'; 
 
-	$sql = new Sql();
-	$result = $sql->query("select * from tb_produtos");
+session_start();   
+
+\Slim\Slim::registerAutoloader();
+
+$app = new \Slim\Slim();
+
+$app->get(
+    '/',
+    function () {
+            require_once('view/index.php');
+    }
+);
 
 
-	while($row = mysqli_fetch_array($result))
-		var_dump($row);
+$app->get(
+    '/videos', 
+    function (){
 
-	exit;
+        require_once('view/videos.php');
+    }
+);
+
+
+$app->get('/shop',
+    function (){
+        require_once('view/shop.php');  
+    }
+);
+
+$app->get('/produtos', 
+
+    function(){
+
+        header_remove();
+        header('Content-Type: application/json');
+
+        $string_query = "SELECT id_prod, nome_prod_longo,foto_principal,preco FROM tb_produtos WHERE preco_promorcional > 0 ORDER BY  preco_promorcional DESC LIMIT 3;";
+        $sql = new Sql();
+        $data = $sql->select($string_query);
+
+
+        foreach ($data as &$produto) {
+            $preco = $produto['preco'];
+            $centavos = explode(".",$preco);
+            $produto['preco'] = number_format($preco,0,",",".");
+            $produto['centavos'] = end($centavos);
+            $produto['parcelas'] = 10;
+            $produto['parcela'] = number_format($preco/$produto['parcelas'],2, ",", ".");
+            $produto['total'] = number_format($preco, 2, ",", ".");
+        }
+        echo json_encode($data);
+    }
+);
+
+
+$app->get('/produtos-mais-buscados', 
+    function (){
+
+        header_remove();
+        header('Content-Type: application/json');
+        $string_query="
+        SELECT 
+        tb_produtos.id_prod,
+        tb_produtos.nome_prod_curto,
+        tb_produtos.nome_prod_longo,
+        tb_produtos.codigo_interno,
+        tb_produtos.id_cat,
+        tb_produtos.preco,
+        tb_produtos.peso,
+        tb_produtos.largura_centimetro,
+        tb_produtos.altura_centimetro,
+        tb_produtos.quantidade_estoque,
+        tb_produtos.preco_promorcional,
+        tb_produtos.foto_principal,
+        tb_produtos.visivel,
+        cast(avg(review) as dec(10,2)) as media, 
+        count(id_prod) as total_reviews
+        FROM tb_produtos 
+        INNER JOIN tb_reviews USING(id_prod) 
+        GROUP BY 
+        tb_produtos.id_prod,
+        tb_produtos.nome_prod_curto,
+        tb_produtos.nome_prod_longo,
+        tb_produtos.codigo_interno,
+        tb_produtos.id_cat,
+        tb_produtos.preco,
+        tb_produtos.peso,
+        tb_produtos.largura_centimetro,
+        tb_produtos.altura_centimetro,
+        tb_produtos.quantidade_estoque,
+        tb_produtos.preco_promorcional,
+        tb_produtos.foto_principal,
+        tb_produtos.visivel
+        LIMIT 4;
+        ";
+
+        $sql = new Sql();
+        $data = $sql->select($string_query);
+
+
+        foreach ($data as &$produto) {
+            $preco = $produto['preco'];
+            $centavos = explode(".",$preco);
+            $produto['preco'] = number_format($preco,0,",",".");
+            $produto['centavos'] = end($centavos);
+            $produto['parcelas'] = 10;
+            $produto['parcela'] = number_format($preco/$produto['parcelas'],2, ",", ".");
+            $produto['total'] = number_format($preco, 2, ",", ".");
+        }
+
+        echo json_encode($data);
+
+
+});
+
+
+$app->get('/produto-:id_prod',
+    function ($id_prod){
+        $string_query = "SELECT id_prod, nome_prod_longo,foto_principal,preco FROM tb_produtos WHERE id_prod = $id_prod";
+        $sql = new Sql();
+        $produtos = $sql->select($string_query);
+        
+        $produto = $produtos[0];
+        $preco = $produto['preco'];
+        $centavos = explode(".",$preco);
+        $produto['preco'] = number_format($preco,0,",",".");
+        $produto['centavos'] = end($centavos);
+        $produto['parcelas'] = 10;
+        $produto['parcela'] = number_format($preco/$produto['parcelas'],2, ",", ".");
+        $produto['total'] = number_format($preco, 2, ",", ".");
+
+
+        require_once("view/shop-produto.php");
+
+});
+
+
+$app->get('/cart', 
+    function(){
+        require_once('view/cart.php');
+
+});
+
+
+$app->get('/carrinho-dados', 
+    function(){
+
+        $sql = new Sql();
+
+        $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+        $carrinho = $result[0];
+        $carrinho['total_car'] = number_format((float)$carrinho['total_car'],2,',','.');
+        $carrinho['subtotal_car'] =number_format((float)$carrinho['subtotal_car'],2,',','.');
+        $carrinho['frete_car'] = number_format((float)$carrinho['frete_car'],2,',','.');
+
+        $id_car = $carrinho['id_car'];
+
+
+        $sql = new Sql();
+
+        $string_query ="CALL sp_carrinhosprodutos_list(".$id_car.")";
+        $carrinho['produtos'] = $sql->select($string_query);
+        echo json_encode($carrinho);
+
+});
+
+
+$app->get('/carrinhoAdd-:id_prod', function ($id_prod){
+    
+    $sql = new Sql();
+    
+    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+    
+    $carrinho = $result[0];
+    
+    $sql  = new Sql();
+    
+    $string_query = "CALL sp_carrinhosprodutos_add(".$carrinho['id_car'].",".$id_prod.")";
+    
+    $sql->query($string_query);
+
+    header("Location: cart");
+    exit;
+
+});
+
+$app->delete("/carrinhoRemoveAll-:id_prod", function($id_prod){
+     $sql = new Sql();
+    
+    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+    
+    $carrinho = $result[0];
+    
+    $sql  = new Sql();
+
+    $sql->query("CALL sp_carrinhosprodutostodos_rem(".$carrinho['id_car'].",".$id_prod.")");
+    echo json_encode(array('success' =>  true));
+
+});
+
+
+$app->post('/carrinho-produto', function(){
+    $data = json_decode(file_get_contents("php://input"),true);
+    $sql = new Sql();
+    
+    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+    $carrinho = $result[0];
+
+    $sql = new Sql();
+
+    $sql->query("CALL sp_carrinhosprodutos_add(".$carrinho['id_car'].",".$data['id_prod'].")");
+
+    echo json_encode(array('success'=> true));
+    
+
+
+});
+
+
+$app->delete('/carrinho-produto', function (){ 
+    $data = json_decode(file_get_contents("php://input"),true);
+    $sql = new Sql();
+    
+    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+    $carrinho = $result[0];
+
+    $sql = new Sql();
+
+    $sql->query("CALL sp_carrinhosprodutos_rem(".$carrinho['id_car'].",".$data['id_prod'].")");
+
+    echo json_encode(array('success'=> true));
+    
+
+});
+
+$app->get("/calcula-frete-:cep", function ($cep){
+    require_once("inc/php-calcular-frete-correios-master//Frete.php");
+
+     $sql = new Sql();
+    
+    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+    $carrinho = $result[0];
+
+
+    $sql = new Sql();
+    $produtos = $sql->select("CALL sp_carrinhosprodutosfrete_list(".$carrinho['id_car'].")");
+    $p_valor['peso'] =0;
+    $p_valor['comprimento'] = 0;
+    $p_valor['altura'] = 0;
+    $p_valor['largura'] = 0;
+    $p_valor['valor'] = 0;
+
+    foreach ($produtos as $produto) {
+
+        $p_valor['peso']=+ $produto['peso'];
+        $p_valor['comprimento']=+ $produto['comprimento'];
+        $p_valor['altura']=+ $produto['altura'];
+        $p_valor['largura']=+ $produto['largura'];
+        $p_valor['valor']=+ $produto['preco'];
+    }
+
+    $cep = trim(str_replace('-', '', $cep));
+    $valor = $p_valor['valor'];
+    $frete = new Frete(
+        $CEPorigem ='07170350',
+        $CEPdestino = $cep,
+        $peso = $p_valor['peso'],
+        $comprimento = $p_valor['comprimento'],
+        $altura = $p_valor['altura'],
+        $largura = $p_valor['largura'],
+        $valor
+    );
+
+    $sql = new Sql();
+    $string_query = "UPDATE tb_carrinhos SET 
+    cep_car = '".$cep."', 
+    frete_car = ".$frete->getValor().", 
+    prazo_car = ".$frete->getPrazoEntrega()." 
+    WHERE id_car = ".$carrinho['id_car']."";
+
+
+    $sql->query($string_query);
+
+ 
+   echo json_encode(array(
+       "success"=>true
+    ));
+});
+
+
+$app->run();
+
 ?>
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- user-scalable=no">-->
-		<title>Orlando City</title>
-		<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
-		
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="lib/node_modules/owl.carousel/dist/assets/owl.carousel.min.css">
-	<link rel="stylesheet" type="text/css" href="lib/node_modules/owl.carousel/dist/assets/owl.theme.default.min.css">
-	<link rel="stylesheet" type="text/css" href="css/orlando.css">
-	<link rel="stylesheet" type="text/css" href="css/orlando-mobile.css">
-
-	</head>
-
-	<body>
-
-		<header>
-
-			<div id="menu-mobile-mask" class="visible-xs"></div>
-
-			<div id="menu-mobile" class="visible-xs">
-				<ul class='list-unstyled'>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="videos.html">Videos</a></li>
-					<li><a href="#">Tickets</a></li>
-					
-					<li><a href="#">News</a></li>
-					
-					<li><a href="#">Schedule</a></li>
-							
-				</ul>
-
-				<div class="bar-close">
-					<button type="button" class="btn btn-close"><i class="fa fa-close"></i></button>
-				</div>
-
-			</div>
-
-
-			<div class="container container-logo">
-				<img id="logotipo" src="img/orlando-logo.png" alt="Logotipo">
-			</div>
-
-			<div class="header-black">
-				
-				<div class="container">
-					<input type="search" id="input-search-mobile" class="visible-xs" placeholder="search... ">
-
-
-				<button id="btn-bars" type="button"><i class="fa fa-bars"></i></button>
-				<button id="btn-search" type="button"><i class="fa fa-search"></i></button>
-					
-					<ul class="pull-right">
-						<li class="club-01"><a href="#"></a></li>
-						<li class="club-02"><a href="#"></a></li>
-						<li class="club-03"><a href="#"></a></li>
-						<li class="club-04"><a href="#"></a></li>
-						<li class="club-05"><a href="#"></a></li>
-						<li class="club-06"><a href="#"></a></li>
-						<li class="club-07"><a href="#"></a></li>
-						<li class="club-08"><a href="#"></a></li>
-						<li class="club-09"><a href="#"></a></li>
-						<li class="club-10"><a href="#"></a></li>
-						<li class="club-11"><a href="#"></a></li>
-						<li class="club-12"><a href="#"></a></li>
-						<li class="club-13"><a href="#"></a></li>
-						<li class="club-14"><a href="#"></a></li>
-						<li class="club-15"><a href="#"></a></li>
-						<li class="club-16"><a href="#"></a></li>
-						<li class="club-17"><a href="#"></a></li>
-						<li class="club-18"><a href="#"></a></li>
-						<li class="club-19"><a href="#"></a></li>
-						<li class="club-20"><a href="#"></a></li>
-						<li class="club-21"><a href="#"></a></li>
-						<li class="club-22"><a href="#"></a></li>
-					</ul>
-
-				</div>
-
-			</div>
-
-			<div class="container">
-
-				<div class="row">
-					
-					<nav id="menu" class="pull-right">
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="videos.html">Videos</a></li>
-							<li><a href="#">Tickets</a></li>
-							
-							<li><a href="#">News</a></li>
-							
-							<li><a href="#">Schedule</a></li>
-							
-							<li class="search">
-								<div class="input-group">
-									<input type="search" placeholder="search" id="input-search">
-									<span class="input-group-btn">
-										<button class="" type="button"><i class="fa fa-search"></i></button>
-									</span>
-								</div>
-
-							</li>
-						</ul>
-
-					</nav>
-
-				</div>
-
-			</div>
-
-		</header>
-
-
-		<section>
-
-			<div id="banner">
-
-				<h1>Orlando City<small>Orlando City Soccer Club</small></h1>
-
-			</div>
-			
-			<div id="news" class="container">
-
-				<div class="row text-center">
-					<h2>Latest News</h2>
-					<hr>
-				</div>
-
-				<div class='btn-news-container'>
-					<button type="button" id="btn-news-prev"><i class="fa fa-angle-left"></i></button>
-					<button type="button" id="btn-news-next"><i class="fa fa-angle-right"></i></button>
-				</div>
-
-				<div class="row thumbnails owl-carousel">
-
-					<div class="item">
-
-						<div class="item-inner">
-
-							<img src="img/noticia-thumb.jpg" alt="Noticia">
-							<h3>Orlando City Acquires Goalkeeper Joe Bendik from Toronto FC</h3>
-							<time>December 21,2015</time>
-
-						</div>
-					</div>
-
-					<div class="item">
-
-						<div class="item-inner">
-
-							<img src="img/noticia-thumb.jpg" alt="Noticia">
-							<h3>Orlando City Acquires Goalkeeper Joe Bendik from Toronto FC</h3>
-							<time>December 21,2015</time>
-						
-						</div>
-
-					</div>
-
-					<div class="item">
-
-						<div class="item-inner">
-
-							<img src="img/noticia-thumb.jpg" alt="Noticia">
-							<h3>Orlando City Acquires Goalkeeper Joe Bendik from Toronto FC</h3>
-							<time>December 21,2015</time>
-
-						</div>
-
-					</div>
-
-					<div class="item">
-
-						<div class="item-inner">
-
-							<img src="img/noticia-thumb.jpg" alt="Noticia">
-							<h3>Orlando City Acquires Goalkeeper Joe Bendik from Toronto FC</h3>
-							<time>December 21,2015</time>
-
-						</div>
-
-					</div>
-
-					<div class="item">
-
-							<div class="item-inner">
-
-								<img src="img/noticia-thumb.jpg" alt="Noticia">
-								<h3>Orlando City Acquires Goalkeeper Joe Bendik from Toronto FC</h3>
-								<time>December 21,2015</time>
-
-							</div>
-					</div>
-
-					<div class="item">
-
-						<div class="item-inner">
-
-							<img src="img/noticia-thumb.jpg" alt="Noticia">
-							<h3>Orlando City Acquires Goalkeeper Joe Bendik from Toronto FC</h3>
-							<time>December 21,2015</time>
-
-						</div>
-
-					</div>
-
-					<div class="item">
-
-						<div class="item-inner">
-
-							<img src="img/noticia-thumb.jpg" alt="Noticia">
-							<h3>Orlando City Acquires Goalkeeper Joe Bendik from Toronto FC</h3>
-							<time>December 21,2015</time>
-
-						</div>
-
-					</div>
-
-					<div class="item">
-
-						<div class="item-inner">
-
-							<img src="img/noticia-thumb.jpg" alt="Noticia">
-							<h3>Orlando City Acquires Goalkeeper Joe Bendik from Toronto FC</h3>
-							<time>December 21,2015</time>
-
-						</div>
-
-					</div>
-
-				</div>
-
-			</div>
-			
-			<div id="estatisticas">
-
-				<div class="container">
-
-					<div class="row">
-
-						<div class="col-md-4">
-							<p>61348<small>Capacity</small></p>
-						
-						</div>
-
-						<div class="col-md-4">
-							<p>2010<small>Founded</small></p>
-						</div>
-
-						<div class="col-md-4">
-							<p>7 th<small>Eastern Conference</small></p>
-						</div>
-
-					</div>
-				</div>
-
-			</div>
-
-			<div id="call-to-action">
-				<div class="row text-center">
-					<h2>American club number one in Brazil </h2>
-					<hr>
-				</div>
-
-				<div class="row">
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-					</p>
-				</div>
-
-				<div class="row row-max-400">
-					
-					<div class="col-xs-6">
-						<a href="#" class="btn btn-roxo">Shop</a>
-					</div>						
-					<div class="col-xs-6">
-						<a href="#" class="btn btn-amarelo">Register</a>
-					</div>			
-
-				</div>
-			</div>
-
-		</section>
-
-		<footer>
-
-			<div class="row row-cinza-claro">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-2 text-center hidden-xs">
-
-							<img class="logotipo" src="img/orlando-logo.png" alt="Logotipo">
-							
-						</div>
-
-						<div class="col-md-10 col-red">
-							<div class="row row-cols ">
-								<div class="col-md-4 col-popular-post hidden-xs" >
-									<h4>POPULAR POSTS</h4>
-
-									<ul class="list-unstyled">
-										<li>
-											<h5>Neque porro quisqum est, quister</h5>
-											<time>January 01,2016</time>
-										</li>
-
-										<li>
-											<h5>Neque porro quisqum est, quister</h5>
-											<time>January 01,2016</time>
-										</li>
-									</ul>
-
-								</div>
-
-								<div class="col-md-4  col-links hidden-xs">
-									<h4>LINKS</h4>
-
-										<ul class="list-unstyled">
-										<li><a href="#"><i class="fa fa-angle-right"></i> Tickets</a></li>
-										<li><a href="#"><i class="fa fa-angle-right"></i> News</a></li>
-										<li><a href="#"><i class="fa fa-angle-right"></i> Schudule</a></li>
-
-									</ul>
-
-
-								</div>
-
-								<div class="col-md-4 col-get-in-touch">
-									<h4 class="hidden-xs">GET IN TOUCH</h4>
-
-									<address class="hidden-xs">
-										<i class="fa fa-map-marker"></i> <span>618 E. South Street, Suite 510
-											<br/>Orlando, FL 32801</span>
-									</address>
-
-									<p class="hidden-xs"><a  href="tel:1855ORLCITY"><i class="fa fa-phone"></i> 1.855.ORL.CITY</a></p>
-
-									<div class="row-fluid visible-xs">
-										<div class="col-xs-6">
-
-											<a href="#" class="btn btn-footer">Location<i class="fa fa-map-marker"></i></a>
-										</div>
-										
-										<div class="col-xs-6">
-											<a href="#" class="btn btn-footer">Call<i class="fa fa-phone"></i></a>
-										</div>
-
-									</div>
-
-
-									<ul class="list-unstyled list-socials">
-										<li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
-										<li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
-										<li><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>
-
-										<li><a href="#" target="_blank"><i class="fa fa-pinterest-p"></i></a></li>
-										<li class="page-up" >
-											<a href="#" id="page-up"><i class="fa fa-chevron-up"></i></a></li>
-									</ul>
-
-								
-								</div>
-
-							</div>
-
-						</div>		
-					</div>
-					
-				</div>
-
-			</div>
-
-			<div class="row row-cinza-escuro">
-				
-				<div class="container copyright-mobile">
-					<p class="pull-left">Copyright © Orlando Ciy Soccer 2016. All rights reserved.
-					</p>
-
-					<p class="pull-right text-roxo">Created  By HCODE in Udemy
-					</p>
-	
-				</div>
-
-			</div>
-		</footer>
-
-		<script type="text/javascript" src="lib/node_modules/jquery/dist/jquery.min.js"></script>
-		<script type="text/javascript" src="lib/node_modules/owl.carousel/dist/owl.carousel.js"></script>
-		<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/efeitos.js"/>
-			
-	</script>
-	</body>
-</html>

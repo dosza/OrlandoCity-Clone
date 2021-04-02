@@ -1,44 +1,24 @@
-	//efeitos.css
-
 $(document).ready(function (){
 
-	var carouselProps = {		
-    	loop:true, 
-		margin: 10,
-		//center:true,
-	//	nav:true,
-		//navText: ["Anterior","Próximo"], //define label dos botões voltar e proximo
-		responsive: {
-			0:{ //define itens para telas menores <480
-				items: 1 //define um item por slide
-			},
-
-			480:{ 
-				items: 3 //define 3 itens no sliddr
-			},
-
-			1000:{ //para resolução 1000dp define 4 itens
-				items: 4 
-			}
-		
-		}
+	var carouselProps = {
+		items:4
 	};
 
 
 	//evento para abrir menu ao clicar em btn-bars
-	$("#btn-bars").on( 'click', ()=>{
+	$("#btn-bars").on( 'click', function(){
 		$('header').toggleClass('open-menu');
 		$("#input-search-mobile").focus();
 	});
 
 
-	$("#btn-search").on('click', ()=>{
+	$("#btn-search").on('click', function(){
 		$('header').toggleClass('open-search')
 
 	});
 
 	//evento para fechar menu
-	$(".btn-close, #menu-mobile-mask").on('click', ()=>{
+	$(".btn-close, #menu-mobile-mask").on('click', function(){
 		$('header').removeClass('open-menu')
 	});
 
@@ -63,16 +43,19 @@ $(document).ready(function (){
 
 	});
 
+	//var thumbnails = $('.thumbnails');
+
+	//thumbnails.owlCarousel(carouselProps);
 	$('.thumbnails').owlCarousel(carouselProps);
 
-	var owl = $('.owl-carousel').data('owl.carousel');
-	$('#btn-news-prev').on('click',()=>{
-		//var owl = $('.owl-carousel').data('owl.carousel');
+	$('.thumbnails').removeClass('owl-theme')
+
+	var owl = $('.thumbnails').data('owlCarousel');
+	$('#btn-news-prev').on('click',function(){
 		owl.prev();
 	})
 
-	$('#btn-news-next').on('click',()=>{
-		//var owl = $('.owl-carousel').data('owl.carousel'); 
+	$('#btn-news-next').on('click',function(){
 		owl.next();
 	});
 
@@ -80,9 +63,7 @@ $(document).ready(function (){
 	//adiciona ação para botão voltar
 	$("#page-up").on('click',function(event){
 
-		$("html,body").animate(
-		{ scrollTop:0 },1000);
-
+		$("html,body").animate({ scrollTop:0 },1000);
 		event.preventDefault();	
 	});
 });

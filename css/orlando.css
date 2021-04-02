@@ -516,7 +516,7 @@ h2.lastest-videos {
 	margin-top: 200px;
 }
 
-.video-player {
+.videoplayer {
 	width: 60vw;
 	margin: 200px 200px;
 }
@@ -528,4 +528,284 @@ h2.lastest-videos {
 
 footer .page-up {
 	display: none !important;
+}
+
+/* Shop.php */
+
+.text-arial-cinza {
+	font-family: arial;
+	font-size: 12px;
+	color: #666;
+}
+
+.text-roxo {
+	color: #6e3ea4;
+}
+
+#destaque-produtos-container {
+	position: relative;
+
+
+}
+
+#destaque-produtos {
+	margin: 30px auto;
+}
+
+#destaque-produtos .col-imagem {
+	text-align: center;
+}
+
+#destaque-produtos .col-imagem img {
+	max-width: 100%;
+	max-height: 250px;
+
+
+}
+
+#destaque-produtos .col-descricao h2 {
+	font-family: arial;
+	font-size: 20px;
+	color:#666;
+
+}
+
+#destaque-produtos .col-descricao .box-valor {
+	width: 100%;
+	position: relative;
+}
+
+#destaque-produtos .col-descricao .box-valor .text-reais {
+	font-size: 18px;
+	font-weight: bold;
+	position: absolute;
+	top:13px;
+	left: 28px;
+}
+
+#destaque-produtos .col-descricao .box-valor .text-valor {
+	font-size: 50px;
+	position: absolute;
+	top: -17px;
+	left: 54px;
+
+}
+
+#destaque-produtos .col-descricao .box-valor .text-valor-centavos {
+	font-size: 30px;
+	position: relative;
+	top:-44px;
+	left:178px;
+	
+
+}
+
+#destaque-produtos .col-descricao .btn-comprar {
+	font-size: 26px;
+	padding: 10px 0;
+}
+
+#destaque-produtos .col-descricao .btn-comprar .fa {
+	font-size: 34px;  
+}
+
+
+#btn-destaque-prev {
+	position: absolute;
+	top: 140px;
+	left: 10px;
+	border:none;
+	font-size: 64px;
+	background: none;
+	color: #2a2a2a;
+	outline:0;
+}
+
+
+#btn-destaque-next {
+	position: absolute;
+	top: 140px;
+	right:0;
+	border:none;
+	font-size: 64px;
+	background: none;
+	color: #2a2a2a;
+	outline:0;
+}
+
+#promocoes .box-promocao {
+	background: #6e3ea4;
+	width: 100%;
+	height:150px;
+	position: relative;
+	text-align: center;
+	color: #fff;
+}
+
+#promocoes .box-promocao.box-1 {
+	font-family: arial;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 7px;
+
+}
+
+#promocoes .box-promocao p {
+	position:absolute;
+	margin-top: 58px;
+
+}
+
+#promocoes .box-promocao .text-ate {
+	font-size: 20px;
+	font-weight: bold;
+	font-family: arial;
+	position: absolute;
+	left:15px;
+	top: 5px;
+
+}
+
+#promocoes .box-promocao .text-numero {
+	font-size: 120px;
+	font-family: 'OpenSans-Light';
+	position: absolute;
+	top: -10px;
+	left: 10px;
+}
+
+#promocoes .box-promocao .text-porcento {
+	font-family: 'OpenSans';
+	font-size: 64px;
+	position: absolute;
+	top: 15px;
+	right:2px;
+
+}
+
+#promocoes .box-promocao .text-off {
+	font-size: 42px;
+	font-family: 'OpenSans-Light';
+	position: absolute;
+	top: 78px;
+	right:3px;
+}
+
+
+.box-produto-info a {
+	text-decoration: none;
+}
+.box-produto-info h3   {
+	font-size: 12px;
+	font-family: arial;
+	color: #666;
+}
+
+.box-produto-info .produto-img{
+	width: 100%;
+}
+
+.box-produto-info .text-qtd-reviews { 
+
+}
+
+.box-produto-info .text-qtd-valor {
+	font-size: 26px;
+	font-weight: bold;
+
+
+}
+
+.box-produto-info .text-qtd-parcelado {
+
+}
+
+.title-default-roxo  h2  {
+    color: #5e2799;
+    font-family: 'OpenSans-Light';
+    font-size: 48px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.title-default-roxo hr {
+	border: #FDE192 solid 8px;
+	width: 200px;
+	margin: 0 auto;
+}
+#cart-products {
+	margin-top: 20px;
+}
+#cart-products td {
+	vertical-align: middle;
+	color: #666;
+}
+#cart-products p {
+	margin: 0;
+	font-size: 12px;
+	color: #666;
+}
+#cart-products .btn {
+	border: none;
+	background: none;
+	outline: 0;
+}
+#cart-products .btn i {
+	font-size: 32px;
+}
+#cart-products .btn i.fa-close {
+	font-size: 14px;
+}
+#cart-products .form-control {
+	text-align: center;
+	border: none;
+	background: none;
+	box-shadow: none;
+	outline: 0;
+}
+#cart-products th {
+	font-weight: 100;
+}
+#cart-products img {
+	max-width: 80px;
+	max-height: 80px;
+}
+.box-outline-grey {
+	border: #CCC 1px solid;
+	height: 160px;
+	text-align: center;
+}
+#calculo-de-frete .btn {
+	background-color: #ccc;
+	height: 42px;
+	border-radius: 0;
+}
+#calculo-de-frete .form-control {
+	height: 42px;
+	border-radius: 0;
+}
+.box-cart-totais {
+	background-color: #eee;
+	height: 160px;
+	padding: 10px;
+}
+.box-cart-totais .table>tbody>tr>td, 
+.box-cart-totais .table>tbody>tr>th, 
+.box-cart-totais .table>tfoot>tr>td, 
+.box-cart-totais .table>tfoot>tr>th, 
+.box-cart-totais .table>thead>tr>td, 
+.box-cart-totais .table>thead>tr>th {
+	border: none;
+	padding: 14px;
+}
+.text-bold {
+	font-weight: bold;
+}
+.btn-roxo {
+	background-color: #5E299A;
+	height: 42px;
+	width: 164px;
+	font-weight: bold;
+	color: #fff!important;
+	border-radius: 0;
 }

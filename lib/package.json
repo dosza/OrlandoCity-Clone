@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "owl.carousel": "^2.3.4",
-    "plyr": "^3.6.4"
+    "plyr": "^3.6.4",
+    "raty-js": "^3.0.0"
   }
 }
