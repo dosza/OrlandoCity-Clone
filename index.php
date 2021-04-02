@@ -222,7 +222,7 @@ $app->post('/carrinho-produto', function(){
 
 
 $app->delete('/carrinho-produto', function (){ 
-     $data = json_decode(file_get_contents("php://input"),true);
+    $data = json_decode(file_get_contents("php://input"),true);
     $sql = new Sql();
     
     $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
@@ -235,6 +235,60 @@ $app->delete('/carrinho-produto', function (){
     echo json_encode(array('success'=> true));
     
 
+});
+
+$app->get("/calcula-frete-:cep", function ($cep){
+    require_once("inc/php-calcular-frete-correios-master//Frete.php");
+
+     $sql = new Sql();
+    
+    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+    $carrinho = $result[0];
+
+
+    $sql = new Sql();
+    $produtos = $sql->select("CALL sp_carrinhosprodutosfrete_list(".$carrinho['id_car'].")");
+    $p_valor['peso'] =0;
+    $p_valor['comprimento'] = 0;
+    $p_valor['altura'] = 0;
+    $p_valor['largura'] = 0;
+    $p_valor['valor'] = 0;
+
+    foreach ($produtos as $produto) {
+
+        $p_valor['peso']=+ $produto['peso'];
+        $p_valor['comprimento']=+ $produto['comprimento'];
+        $p_valor['altura']=+ $produto['altura'];
+        $p_valor['largura']=+ $produto['largura'];
+        $p_valor['valor']=+ $produto['preco'];
+    }
+
+    $cep = trim(str_replace('-', '', $cep));
+    $valor = $p_valor['valor'];
+    $frete = new Frete(
+        $CEPorigem ='07170350',
+        $CEPdestino = $cep,
+        $peso = $p_valor['peso'],
+        $comprimento = $p_valor['comprimento'],
+        $altura = $p_valor['altura'],
+        $largura = $p_valor['largura'],
+        $valor
+    );
+
+    $sql = new Sql();
+    $string_query = "UPDATE tb_carrinhos SET 
+    cep_car = '".$cep."', 
+    frete_car = ".$frete->getValor().", 
+    prazo_car = ".$frete->getPrazoEntrega()." 
+    WHERE id_car = ".$carrinho['id_car']."";
+
+
+    $sql->query($string_query);
+
+ 
+   echo json_encode(array(
+       "success"=>true
+    ));
 });
 
 

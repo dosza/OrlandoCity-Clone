@@ -39,7 +39,7 @@
 					</td>
 					<td class="text-center col-xs-2">
 						<p>Entrega para o<br/>CEP: {{carrinho.cep}}</p>
-						<strong class="text-roxo">{{produto.prazo}}</strong>
+						<strong class="text-roxo">{{carrinho.prazo}}</strong>
 					</td>
 					<td class="text-center">R$ {{produto.preco}}</td>
 					<td class="text-center">R$ {{produto.total}}</td>
@@ -53,9 +53,9 @@
 				<div class="box-outline-grey">
 					<p style="margin:28px auto;">Simule o prazo de entrega e o frete para seu CEP abaixo:</p>
 					<div class="input-group col-xs-4" style="margin:0 auto;">
-				      <input type="text" class="form-control">
+				      <input type="text" class="form-control" ng-model="cep">
 				      <span class="input-group-btn">
-				      	<button class="btn btn-default" type="button">Calcular Frete</button>
+				      	<button class="btn btn-default" type="button" ng-click="calcularFrete(cep)">Calcular Frete</button>
 				      </span>
 				    </div>
 				</div>
@@ -89,8 +89,8 @@
 <?php include_once("footer.php");?>
 
 <script>
-angular.module("shop", []).controller("cart-controller", function($scope, $http){
-
+	angular.module("shop", []).controller("cart-controller", function($scope, $http){
+	
 
 	var carregarCarrinho = function(){
 
@@ -101,7 +101,9 @@ angular.module("shop", []).controller("cart-controller", function($scope, $http)
 			$scope.carrinho = {
 				cep:response.data.cep_car,
 				subtotal:response.data.subtotal_car,
-				total:response.data.total_car
+				total:response.data.total_car,
+				frete:response.data.frete_car,
+				prazo:response.data.prazo_car + ' dias úteis'
 			};
 
 			$scope.produtos  = response.data.produtos;
@@ -164,6 +166,22 @@ angular.module("shop", []).controller("cart-controller", function($scope, $http)
 		}, function(){
 
 
+
+		});
+
+	};
+
+	$scope.calcularFrete = function(_cep){
+		$http({
+			method:'GET',
+			url:'calcula-frete-'+_cep
+		}).then(function(response){
+			carregarCarrinho();
+
+
+		}, function(response){
+
+			console.error(response);
 
 		});
 
