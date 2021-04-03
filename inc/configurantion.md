@@ -12,27 +12,11 @@ Instruções
 Exemplo: configuration.php
 ---
 ```php
-<?php
-class Sql {
-
-	//construtor
-
-	public $conn;
-
-
-	public function __construct(){
-		return $this->conn =  mysqli_connect('127.0.0.1','my_user','my_password','hcode_shop');
-	}
-
-	public function __destruct(){
-		mysqli_close($this->conn);
-	}
-
-	public function query($string_query){
-		return mysqli_query($this->conn, $string_query);
-	}
-}
-
+	<?php  
+	define("SERVER","127.0.0.1");
+	define("USER","root");
+	define("PASSWORD","password");
+	define("DB","hcode_shop");
 ?>
 ```
 
