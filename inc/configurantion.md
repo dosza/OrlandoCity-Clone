@@ -3,39 +3,23 @@ Configuration.php
 
 Instruções
 ---
--	Crie o configuration.php em inc/
--	Copie e cole contéudo do arquivo configuration.php
+-	Crie o .env.config.ini em inc/
+-	Copie e cole contéudo do arquivo .env.config.ini
 -	Adicione as  suas informações de servidor, usuário e senha
 
 
 
 Exemplo: configuration.php
 ---
-```php
-<?php
-class Sql {
+```ini
+[database]
+db_server = 127.0.0.1
+db_user = user
+db_password = password
+db_schema = hcode_shop
 
-	//construtor
-
-	public $conn;
-
-
-	public function __construct(){
-		return $this->conn =  mysqli_connect('127.0.0.1','my_user','my_password','hcode_shop');
-	}
-
-	public function __destruct(){
-		mysqli_close($this->conn);
-	}
-
-	public function query($string_query){
-		return mysqli_query($this->conn, $string_query);
-	}
-}
-
-?>
 ```
 
 Obs:
 ---
-O arquivo configuration.php está configurado em .gitignore
+O arquivo .env.config.ini stá configurado em .gitignore
