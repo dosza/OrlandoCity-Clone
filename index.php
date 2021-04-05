@@ -38,9 +38,9 @@ $app->get('/produtos',
         header_remove();
         header('Content-Type: application/json');
 
-        $string_query = "SELECT id_prod, nome_prod_longo,foto_principal,preco FROM tb_produtos WHERE preco_promorcional > 0 ORDER BY  preco_promorcional DESC LIMIT 3;";
-        $sql = new Sql();
-        $data = $sql->select($string_query);
+        $string_query = "SELECT id_prod, nome_prod_longo,foto_principal,preco FROM tb_produtos WHERE preco_promorcional > ? ORDER BY  preco_promorcional DESC LIMIT 3;";
+        $sql = new SqlPreparated();
+        $data = $sql->select($string_query,'i',array(0));
 
 
         foreach ($data as &$produto) {
@@ -120,9 +120,9 @@ $app->get('/produtos-mais-buscados',
 
 $app->get('/produto-:id_prod',
     function ($id_prod){
-        $string_query = "SELECT id_prod, nome_prod_longo,foto_principal,preco FROM tb_produtos WHERE id_prod = $id_prod";
-        $sql = new Sql();
-        $produtos = $sql->select($string_query);
+        $string_query = "SELECT id_prod, nome_prod_longo,foto_principal,preco FROM tb_produtos WHERE id_prod = ?";
+        $sql = new SqlPreparated();
+        $produtos = $sql->select($string_query,'i',array($id_prod));
         
         $produto = $produtos[0];
         $preco = $produto['preco'];
@@ -149,9 +149,9 @@ $app->get('/cart',
 $app->get('/carrinho-dados', 
     function(){
 
-        $sql = new Sql();
+        $sql = new SqlPreparated();
 
-        $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+        $result = $sql->select("CALL sp_carrinhos_get(?)",'i',array(session_id()));
         $carrinho = $result[0];
         $carrinho['total_car'] = number_format((float)$carrinho['total_car'],2,',','.');
         $carrinho['subtotal_car'] =number_format((float)$carrinho['subtotal_car'],2,',','.');
@@ -160,10 +160,10 @@ $app->get('/carrinho-dados',
         $id_car = $carrinho['id_car'];
 
 
-        $sql = new Sql();
+        $sql = new SqlPreparated();
 
-        $string_query ="CALL sp_carrinhosprodutos_list(".$id_car.")";
-        $carrinho['produtos'] = $sql->select($string_query);
+        $string_query ="CALL sp_carrinhosprodutos_list(?)";
+        $carrinho['produtos'] = $sql->select($string_query,'i',array($id_car));
         echo json_encode($carrinho);
 
 });
@@ -171,17 +171,21 @@ $app->get('/carrinho-dados',
 
 $app->get('/carrinhoAdd-:id_prod', function ($id_prod){
     
-    $sql = new Sql();
+    $sql = new SqlPreparated();
     
-    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+    $result = $sql->select("CALL sp_carrinhos_get(?)",'i',array(session_id()));
     
     $carrinho = $result[0];
     
-    $sql  = new Sql();
+    $sql  = new SqlPreparated();
     
-    $string_query = "CALL sp_carrinhosprodutos_add(".$carrinho['id_car'].",".$id_prod.")";
+    $string_query =    'CALL sp_carrinhosprodutos_add(?,?)';
     
-    $sql->query($string_query);
+    $sql->query($string_query,'ii',array(
+            (int) $carrinho['id_car'],
+            (int) $id_prod
+        )
+    );
 
     header("Location: cart");
     exit;
@@ -189,15 +193,18 @@ $app->get('/carrinhoAdd-:id_prod', function ($id_prod){
 });
 
 $app->delete("/carrinhoRemoveAll-:id_prod", function($id_prod){
-     $sql = new Sql();
+     $sql = new SqlPreparated();
     
-    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+    $result = $sql->select("CALL sp_carrinhos_get(?)",'i',array(session_id()));
     
     $carrinho = $result[0];
     
-    $sql  = new Sql();
+    $sql  = new SqlPreparated();
 
-    $sql->query("CALL sp_carrinhosprodutostodos_rem(".$carrinho['id_car'].",".$id_prod.")");
+    $sql->query("CALL sp_carrinhosprodutostodos_rem(?,?)",'ii',array(
+        $carrinho['id_car'],
+        $id_prod
+    ));
     echo json_encode(array('success' =>  true));
 
 });
@@ -205,14 +212,18 @@ $app->delete("/carrinhoRemoveAll-:id_prod", function($id_prod){
 
 $app->post('/carrinho-produto', function(){
     $data = json_decode(file_get_contents("php://input"),true);
-    $sql = new Sql();
+    $sql = new SqlPreparated();
     
-    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+    $result = $sql->select("CALL sp_carrinhos_get(?)",'i',array(session_id()));
     $carrinho = $result[0];
 
-    $sql = new Sql();
+    $sql = new SqlPreparated();
 
-    $sql->query("CALL sp_carrinhosprodutos_add(".$carrinho['id_car'].",".$data['id_prod'].")");
+    $sql->query("CALL sp_carrinhosprodutos_add(?,?)",'ii',array(
+            (int) $carrinho['id_car'],
+            (int) $data['id_prod']
+        )
+    );
 
     echo json_encode(array('success'=> true));
     
@@ -223,14 +234,18 @@ $app->post('/carrinho-produto', function(){
 
 $app->delete('/carrinho-produto', function (){ 
     $data = json_decode(file_get_contents("php://input"),true);
-    $sql = new Sql();
+    $sql = new SqlPreparated();
     
-    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+    $result = $sql->select("CALL sp_carrinhos_get(?)",'i',array(session_id()));
     $carrinho = $result[0];
 
-    $sql = new Sql();
+    $sql = new SqlPreparated();
 
-    $sql->query("CALL sp_carrinhosprodutos_rem(".$carrinho['id_car'].",".$data['id_prod'].")");
+    $sql->query("CALL sp_carrinhosprodutos_rem(?,?)",'ii',array(
+            (int) $carrinho['id_car'],
+            (int) $data['id_prod']
+        )
+    );
 
     echo json_encode(array('success'=> true));
     
@@ -240,14 +255,14 @@ $app->delete('/carrinho-produto', function (){
 $app->get("/calcula-frete-:cep", function ($cep){
     require_once("inc/php-calcular-frete-correios-master//Frete.php");
 
-     $sql = new Sql();
+     $sql = new SqlPreparated();
     
-    $result = $sql->select("CALL sp_carrinhos_get('".session_id()."')");
+    $result = $sql->select("CALL sp_carrinhos_get(?)",'i',array(session_id()));
     $carrinho = $result[0];
 
 
-    $sql = new Sql();
-    $produtos = $sql->select("CALL sp_carrinhosprodutosfrete_list(".$carrinho['id_car'].")");
+    $sql = new SqlPreparated();
+    $produtos = $sql->select("CALL sp_carrinhosprodutosfrete_list(?)", 'i',array($carrinho['id_car']));
     $p_valor['peso'] =0;
     $p_valor['comprimento'] = 0;
     $p_valor['altura'] = 0;
@@ -275,15 +290,16 @@ $app->get("/calcula-frete-:cep", function ($cep){
         $valor
     );
 
-    $sql = new Sql();
-    $string_query = "UPDATE tb_carrinhos SET 
-    cep_car = '".$cep."', 
-    frete_car = ".$frete->getValor().", 
-    prazo_car = ".$frete->getPrazoEntrega()." 
-    WHERE id_car = ".$carrinho['id_car']."";
+    $sql = new SqlPreparated();
+    $string_query = "UPDATE tb_carrinhos SET cep_car = ?, frete_car = ?, prazo_car = ? WHERE id_car = ?";
 
 
-    $sql->query($string_query);
+    $sql->query($string_query,'sdii',array(
+        $cep,
+        $frete->getValor(),
+        $frete->getPrazoEntrega(),
+        $carrinho['id_car']
+    ));
 
  
    echo json_encode(array(

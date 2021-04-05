@@ -51,5 +51,38 @@ class Sql {
 	}
 }
 
+class SqlPreparated extends Sql {
+		
+		public function prepare($str_query){
+			return mysqli_prepare($this->conn,$str_query);
+		}
+		
+		public function query($str_query, $types, $params){
+			
+			$stmt = $this->prepare($str_query);
+			$stmt->bind_param($types,...$params);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			return $result;
+		}
+		
+		public function select($str_query, $types, $params){
+			$data = [];
+			$result = $this->query($str_query,$types,$params);
+
+		    while ( $row = mysqli_fetch_array($result) ) {
+
+	    	foreach ($row as $key => $value) {	
+	    		$row[$key] = utf8_encode($value);
+	    		# code...
+	    	}
+	    	
+	        array_push($data, $row);
+	    }
+
+			return $data;
+		}
+	}
+
 
 ?>
