@@ -4,22 +4,22 @@ Configuration.php
 Instruções
 ---
 -	Crie o configuration.php em inc/
--	Copie e cole contéudo do arquivo configuration.php
+-	Copie e cole contéudo do arquivo .env.config.ini
 -	Adicione as  suas informações de servidor, usuário e senha
 
 
 
 Exemplo: configuration.php
 ---
-```php
-	<?php  
-	define("SERVER","127.0.0.1");
-	define("USER","root");
-	define("PASSWORD","password");
-	define("DB","hcode_shop");
-?>
+```ini
+[database]
+db_server = 127.0.0.1
+db_user = user
+db_password = password
+db_schema = hcode_shop
+
 ```
 
 Obs:
 ---
-O arquivo configuration.php está configurado em .gitignore
+O arquivo .env.config.ini stá configurado em .gitignore
