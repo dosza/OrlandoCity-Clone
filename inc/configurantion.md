@@ -3,7 +3,7 @@ Configuration.php
 
 Instruções
 ---
--	Crie o configuration.php em inc/
+-	Crie o .env.config.ini em inc/
 -	Copie e cole contéudo do arquivo .env.config.ini
 -	Adicione as  suas informações de servidor, usuário e senha
 
